@@ -1,6 +1,6 @@
-package springData;
+package db.springData;
 
-import evaluations.Evaluation;
+import model.evaluation.Evaluation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

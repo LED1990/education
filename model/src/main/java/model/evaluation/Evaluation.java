@@ -1,4 +1,4 @@
-package evaluations;
+package model.evaluation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.Set;
 public class Evaluation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String comment;
     private String CaseNarrative;

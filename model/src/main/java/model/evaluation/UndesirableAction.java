@@ -1,15 +1,16 @@
-package evaluations;
+package model.evaluation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import java.util.Set;
 
@@ -20,12 +21,13 @@ import java.util.Set;
 public class UndesirableAction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//todo na psql zamienic
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String description;
     @Transient
     private Set<Classification> classifications;
-    @Transient
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
     private Set<Indication> indications;
 
     @ManyToOne

@@ -1,4 +1,4 @@
-package evaluations;
+package model.evaluation;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
