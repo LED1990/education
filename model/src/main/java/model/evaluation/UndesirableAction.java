@@ -24,9 +24,8 @@ public class UndesirableAction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     private String description;
-    @Transient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
     private Set<Classification> classifications;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
     private Set<Indication> indications;
 
