@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ public class UndesirableAction {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
     private Set<Indication> indications;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Evaluation evaluation;
 
     public UndesirableAction(String description, Evaluation evaluation) {

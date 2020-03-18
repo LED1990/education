@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class Indication {
     private Long id;
     private String mdeicineName;
     private String info;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UndesirableAction undesirableAction;
 
     public Indication(String mdeicineName, String info, UndesirableAction undesirableAction) {
