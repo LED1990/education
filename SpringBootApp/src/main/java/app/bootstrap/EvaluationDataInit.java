@@ -28,8 +28,8 @@ public class EvaluationDataInit implements CommandLineRunner {
         evaluation.setComment("test comment");
 
         Set<UndesirableAction> undesirableActionSet = new HashSet<>();
-        undesirableActionSet.add(new UndesirableAction("destription to action 1"));
-        undesirableActionSet.add(new UndesirableAction("destription to action 2"));
+        undesirableActionSet.add(new UndesirableAction("destription to action 1", evaluation));
+        undesirableActionSet.add(new UndesirableAction("destription to action 2", evaluation));
 
         evaluation.setUndesirableActions(undesirableActionSet);
 
