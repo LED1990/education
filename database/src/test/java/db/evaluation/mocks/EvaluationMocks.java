@@ -1,41 +1,16 @@
-package app.bootstrap;
+package db.evaluation.mocks;
 
-import db.evaluation.criteria.EvaluationCriteriaDao;
-import db.evaluation.springData.EvaluationDao;
 import model.evaluation.Classification;
 import model.evaluation.Evaluation;
 import model.evaluation.Indication;
 import model.evaluation.UndesirableAction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-/**
- * Class just for test to initialize h2 db with some startup data
- */
-@Component
-public class EvaluationDataInit implements CommandLineRunner {
+public class EvaluationMocks {
 
-    private Logger logger = LoggerFactory.getLogger(EvaluationDataInit.class);
-
-    private final EvaluationDao evaluationDao;
-
-    @Autowired
-    public EvaluationDataInit(EvaluationDao evaluationDao) {
-        this.evaluationDao = evaluationDao;
-    }
-
-    @Override
-    @Transactional
-    public void run(String... args) throws Exception {
-        logger.info("Bootstrapping evaluation data");
+    public static Evaluation prepareEvaluationObjectMock(){
         Evaluation evaluation = new Evaluation();
         evaluation.setCaseNarrative("test case narrative");
         evaluation.setComment("test comment");
@@ -68,6 +43,6 @@ public class EvaluationDataInit implements CommandLineRunner {
 
         evaluation.setUndesirableActions(undesirableActionSet);
 
-        evaluationDao.save(evaluation);
+        return evaluation;
     }
 }
