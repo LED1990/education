@@ -20,13 +20,13 @@ public class Indication {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String mdeicineName;
+    private String medicineName;
     private String info;
     @ManyToOne(fetch = FetchType.LAZY)
     private UndesirableAction undesirableAction;
 
-    public Indication(String mdeicineName, String info, UndesirableAction undesirableAction) {
-        this.mdeicineName = mdeicineName;
+    public Indication(String medicineName, String info, UndesirableAction undesirableAction) {
+        this.medicineName = medicineName;
         this.info = info;
         this.undesirableAction = undesirableAction;
     }
