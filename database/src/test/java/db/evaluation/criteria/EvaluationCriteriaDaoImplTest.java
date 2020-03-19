@@ -20,8 +20,7 @@ import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = DbTestConfig.class, loader = AnnotationConfigContextLoader.class)
-@DataJpaTest
-        //this needs spring configuration in package or package above!
+@DataJpaTest//this needs spring configuration in package or package above!
 class EvaluationCriteriaDaoImplTest {
 
     @Resource
@@ -42,7 +41,7 @@ class EvaluationCriteriaDaoImplTest {
             evaluationDao.save(obj);
         }
 
-        EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment hitman", null, null, "code changed", null, null, null);
+        EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment1", "case narrative2", "description2", "code1", "name2", "medicine1", "info2");
 
         List<Evaluation> result = evaluationDao.getByCriteria(evaluationSearchCriteria);
         Set<Evaluation> resultSet = new HashSet<>(result);

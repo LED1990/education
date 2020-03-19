@@ -26,9 +26,9 @@ public class EvaluationMocks {
 
 
     public static List<Evaluation> prepareEvaluationObjectMock() {
-        EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment hitman", "case narrative hitman", "description hitman", "code hitman", "name", "medicine", "info");
-        EvaluationSearchCriteria evaluationSearchCriteria2 = new EvaluationSearchCriteria("comment changed", "case narrative changed", "description changed", "code changed", "name", "medicine", "info");
-        EvaluationSearchCriteria evaluationSearchCriteria3 = new EvaluationSearchCriteria("comment", "case narrative", "description", "code one and only", "name", "medicine", "info");
+        EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment1", "case narrative1", "description1", "code1", "name1", "medicine1", "info1");
+        EvaluationSearchCriteria evaluationSearchCriteria2 = new EvaluationSearchCriteria("comment2", "case narrative2", "description2", "code2", "name2", "medicine2", "info2");
+        EvaluationSearchCriteria evaluationSearchCriteria3 = new EvaluationSearchCriteria("comment3", "case narrative3", "description3", "code3", "name3", "medicine3", "info3");
 
         List<Evaluation> result = new ArrayList<>();
         result.add(EvaluationMocks.prepareObject(evaluationSearchCriteria));
