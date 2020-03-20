@@ -1,8 +1,8 @@
 package db.evaluation.criteria;
 
 import db.evaluation.config.DbTestConfig;
-import db.evaluation.mocks.EvaluationMocks;
 import db.evaluation.springData.EvaluationDao;
+import evaluation.EvaluationMock;
 import model.evaluation.Evaluation;
 import model.evaluation.EvaluationSearchCriteria;
 import org.junit.Assert;
@@ -30,14 +30,14 @@ class EvaluationCriteriaDaoImplTest {
     @Test
     void getAllEntitiesShouldReturnAll() {
         EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment", "case narrative", "description", "code", "name", "medicine", "info");
-        evaluationDao.save(EvaluationMocks.prepareObject(evaluationSearchCriteria));
+        evaluationDao.save(EvaluationMock.prepareObject(evaluationSearchCriteria));
         Optional<List<Evaluation>> result = evaluationDao.getAllEntities();
         Assert.assertTrue(result.isPresent());
     }
 
     @Test
     void getAllEntitiesShouldReturnDistinct() {
-        for (Evaluation obj : EvaluationMocks.prepareEvaluationObjectMock()
+        for (Evaluation obj : EvaluationMock.prepareEvaluationObjectMock()
                 ) {
             evaluationDao.save(obj);
         }

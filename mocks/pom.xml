@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>database</artifactId>
+    <artifactId>mocks</artifactId>
     <dependencies>
         <dependency>
             <groupId>com.projekty</groupId>
@@ -17,14 +17,9 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.projekty</groupId>
-            <artifactId>mocks</artifactId>
+            <artifactId>model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluations page</title>
+    <link href="../static/css/evaluation.css" th:href="@{/css/evaluation.css}" rel="stylesheet"/>
+</head>
+<body>
+<h1>Hello to evaluation page</h1>
+
+<div class="table-container">
+    <h2>Evaluation list</h2>
+    <table id="evaluationTable">
+        <tr>
+            <th></th>
+            <th>Case narrative</th>
+            <th>Comment</th>
+            <th>Description</th>
+            <th>Classification code</th>
+            <th>Classification name</th>
+            <th>Medicine</th>
+            <th>Info</th>
+        </tr>
+        <!--/*@thymesVar id="evalList" type="model.evaluation.Evaluation"*/-->
+        <!--/*@thymesVar id="eval" type="model.evaluation.Evaluation"*/-->
+        <!--/*@thymesVar id="action" type="model.evaluation.UndesirableAction"*/-->
+        <tr th:each="eval,iter:${evalList}">
+            <td th:text="${iter.index +1}"></td>
+            <td th:text="${eval.comment}"></td>
+            <td th:text="${eval.caseNarrative}"></td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:text="${action.description}"></label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="classCode:${action.classifications}">
+                        <label  th:text="${classCode.code}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="className:${action.classifications}">
+                        <label  th:text="${className.name}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="indicationMed:${action.indications}">
+                        <label th:text="${indicationMed.medicineName}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="indicationInfo:${action.indications}">
+                        <label th:text="${indicationInfo.info}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
