@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EvaluationCriteriaDaoImpl implements EvaluationCriteriaDao {
@@ -19,18 +20,18 @@ public class EvaluationCriteriaDaoImpl implements EvaluationCriteriaDao {
     private EntityManager entityManager;
 
     @Override
-    public List<Evaluation> getAllEntities() {
+    public Optional<List<Evaluation>> getAllEntities() {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Evaluation> criteriaQuery = criteriaBuilder.createQuery(Evaluation.class);
         Root<Evaluation> root = criteriaQuery.from(Evaluation.class);
         criteriaQuery.select(root);
 
         TypedQuery<Evaluation> query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
+        return Optional.ofNullable(query.getResultList());
     }
 
     @Override
-    public List<Evaluation> getByCriteria(EvaluationSearchCriteria evaluationSearchCriteria) {
+    public Optional<List<Evaluation>> getByCriteria(EvaluationSearchCriteria evaluationSearchCriteria) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Evaluation> criteriaQuery = criteriaBuilder.createQuery(Evaluation.class);
         Root<Evaluation> root = criteriaQuery.from(Evaluation.class);
@@ -80,6 +81,6 @@ public class EvaluationCriteriaDaoImpl implements EvaluationCriteriaDao {
         Predicate finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
         criteriaQuery.select(root).where(finalPredicate).distinct(true);
         TypedQuery<Evaluation> query = entityManager.createQuery(criteriaQuery);
-        return query.getResultList();
+        return  Optional.ofNullable(query.getResultList());
     }
 }

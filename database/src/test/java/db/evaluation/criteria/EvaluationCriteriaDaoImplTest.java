@@ -16,6 +16,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
@@ -30,8 +31,8 @@ class EvaluationCriteriaDaoImplTest {
     void getAllEntitiesShouldReturnAll() {
         EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment", "case narrative", "description", "code", "name", "medicine", "info");
         evaluationDao.save(EvaluationMocks.prepareObject(evaluationSearchCriteria));
-        List<Evaluation> result = evaluationDao.getAllEntities();
-        Assert.assertTrue(!result.isEmpty());
+        Optional<List<Evaluation>> result = evaluationDao.getAllEntities();
+        Assert.assertTrue(result.isPresent());
     }
 
     @Test
@@ -43,9 +44,9 @@ class EvaluationCriteriaDaoImplTest {
 
         EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("comment1", "case narrative2", "description2", "code1", "name2", "medicine1", "info2");
 
-        List<Evaluation> result = evaluationDao.getByCriteria(evaluationSearchCriteria);
-        Set<Evaluation> resultSet = new HashSet<>(result);
-        Assert.assertTrue(resultSet.size() == result.size());
-        Assert.assertTrue(!result.isEmpty());
+        Optional<List<Evaluation>> result = evaluationDao.getByCriteria(evaluationSearchCriteria);
+        Assert.assertTrue(result.isPresent());
+        Set<Evaluation> resultSet = new HashSet<>(result.get());
+        Assert.assertTrue(resultSet.size() == result.get().size());
     }
 }
