@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 public class Classification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
     private String name;

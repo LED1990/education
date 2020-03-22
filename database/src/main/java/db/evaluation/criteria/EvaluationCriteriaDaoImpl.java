@@ -31,12 +31,57 @@ public class EvaluationCriteriaDaoImpl implements EvaluationCriteriaDao {
     }
 
     @Override
-    public Optional<List<Evaluation>> getByCriteria(EvaluationSearchCriteria evaluationSearchCriteria) {
+    public Optional<EvaluationResults> getByCriteria(EvaluationSearchCriteria evaluationSearchCriteria) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Evaluation> criteriaQuery = criteriaBuilder.createQuery(Evaluation.class);
+
         Root<Evaluation> root = criteriaQuery.from(Evaluation.class);
 
         List<Predicate> predicates = new ArrayList<>();
+
+        prepareQueryData(root, evaluationSearchCriteria, predicates, criteriaBuilder);
+
+        Predicate finalPredicate;
+        if (predicates.size() != 0){
+            finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
+            criteriaQuery.select(root).where(finalPredicate).distinct(true);
+        }else {
+            criteriaQuery.select(root).distinct(true);
+        }
+
+        TypedQuery<Evaluation> query = entityManager.createQuery(criteriaQuery);
+
+        query.setFirstResult(evaluationSearchCriteria.getFirstResult() * 5); //page size always the same and eq 5
+        query.setMaxResults(evaluationSearchCriteria.getMaxResults());
+
+        Long totalCount = countResults(evaluationSearchCriteria);
+
+        EvaluationResults evaluationResults = new EvaluationResults(totalCount, query.getResultList());
+
+        return Optional.of(evaluationResults);
+    }
+
+    public Long countResults(EvaluationSearchCriteria evaluationSearchCriteria){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+        Root<Evaluation> root = countQuery.from(Evaluation.class);
+        Expression<Long> countExpression = builder.countDistinct(root);
+
+        List<Predicate> predicates = new ArrayList<>();
+        prepareQueryData(root, evaluationSearchCriteria, predicates, builder);
+
+        if (predicates.size() == 0){
+            countQuery.select(countExpression);
+        }else {
+            Predicate finalPredicate = builder.or(predicates.toArray(new Predicate[]{}));
+            countQuery.select(countExpression).where(finalPredicate);
+        }
+        TypedQuery<Long> typedStudentQuery = entityManager.createQuery(countQuery);
+
+        return typedStudentQuery.getSingleResult();
+    }
+
+    public void prepareQueryData(Root<Evaluation> root, EvaluationSearchCriteria evaluationSearchCriteria, List<Predicate> predicates, CriteriaBuilder criteriaBuilder){
 
         SetJoin<Evaluation, UndesirableAction> undesirableActionJoin = null;
         SetJoin<UndesirableAction, Classification> classificationJoin;
@@ -78,9 +123,5 @@ public class EvaluationCriteriaDaoImpl implements EvaluationCriteriaDao {
                 predicates.add(criteriaBuilder.like(indicationJoin.get(Indication_.INFO), evaluationSearchCriteria.getInfo()));
             }
         }
-        Predicate finalPredicate = criteriaBuilder.or(predicates.toArray(new Predicate[]{}));
-        criteriaQuery.select(root).where(finalPredicate).distinct(true);
-        TypedQuery<Evaluation> query = entityManager.createQuery(criteriaQuery);
-        return  Optional.ofNullable(query.getResultList());
     }
 }

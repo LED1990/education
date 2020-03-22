@@ -1,22 +1,15 @@
-#evaluationTable {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
+.table-container{
+    width: 80%;
+    height: 80%;
+}
+.criteria-container{
     width: 80%;
 }
-
-#evaluationTable td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
+.criteria-container .input-group,.input-group-sm,.mb-3{
+    width: 100%;
 }
 
-#evaluationTable tr:nth-child(even){background-color: #f2f2f2;}
-
-#evaluationTable tr:hover {background-color: #ddd;}
-
-#evaluationTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
+#submit-evaluation{
+    float: right;
+    margin-bottom: 10px;
 }

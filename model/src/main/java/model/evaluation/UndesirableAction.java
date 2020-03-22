@@ -21,7 +21,7 @@ import java.util.Set;
 public class UndesirableAction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
