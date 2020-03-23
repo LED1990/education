@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,15 +18,15 @@ import javax.persistence.ManyToOne;
 public class Indication {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String mdeicineName;
+    private String medicineName;
     private String info;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UndesirableAction undesirableAction;
 
-    public Indication(String mdeicineName, String info, UndesirableAction undesirableAction) {
-        this.mdeicineName = mdeicineName;
+    public Indication(String medicineName, String info, UndesirableAction undesirableAction) {
+        this.medicineName = medicineName;
         this.info = info;
         this.undesirableAction = undesirableAction;
     }

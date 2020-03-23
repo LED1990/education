@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Evaluations page</title>
+    <link rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <link href="../static/css/evaluation.css" th:href="@{/css/evaluation.css}" rel="stylesheet"/>
+</head>
+<body>
+<h1>Hello to evaluation page</h1>
+
+<div class="criteria-container">
+    <!--/*@thymesVar id="searchCriteria" type="model.evaluation.EvaluationSearchCriteria"*/-->
+    <form action="#" th:action="@{/evaluation/v1/search?page={pageNum}(pageNum = 0)}" th:object="${searchCriteria}"
+          method="post">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <label for="comment">Evaluation comment</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="comment" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{comment}"/>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label for="case-narrative">Evaluation case narrative</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="case-narrative" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{caseNarrative}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="description">Undesirable action description</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="description" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{description}"/>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label for="description"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="class-code">Classificaion code</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="class-code" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{code}"/>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label for="class-name">Classificaion name</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="class-name" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{name}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <label for="med-name">Indication medicine name</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="med-name" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{medicineName}"/>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <label for="indication-info">Indication information</label>
+                    <div class="input-group input-group-sm mb-3">
+                        <input id="indication-info" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" th:field="*{info}"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input id="submit-evaluation" class="btn btn-primary" type="submit" value="Search"/>
+    </form>
+</div>
+
+<div class="table-container">
+    <label th:text="'Total results ' + ${totalElements}"></label>
+    <table id="evaluationTable" class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row">Comment</th>
+            <th scope="row">Case narrative</th>
+            <th scope="row">Description</th>
+            <th scope="row">Classification code</th>
+            <th scope="row">Classification name</th>
+            <th scope="row">Medicine</th>
+            <th scope="row">Info</th>
+        </tr>
+        </thead>
+        <!--/*@thymesVar id="evalList" type="model.evaluation.Evaluation"*/-->
+        <!--/*@thymesVar id="eval" type="model.evaluation.Evaluation"*/-->
+        <!--/*@thymesVar id="action" type="model.evaluation.UndesirableAction"*/-->
+        <tr th:each="eval,iter:${evalList}">
+            <td scope="row" th:text="${iter.index +1}"></td>
+            <td th:text="${eval.comment}"></td>
+            <td th:text="${eval.caseNarrative}"></td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:text="${action.description}"></label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="classCode:${action.classifications}">
+                        <label th:text="${classCode.code}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="className:${action.classifications}">
+                        <label th:text="${className.name}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="indicationMed:${action.indications}">
+                        <label th:text="${indicationMed.medicineName}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+            <td>
+                <label th:each="action:${eval.undesirableActions}">
+                    <label th:each="indicationInfo:${action.indications}">
+                        <label th:text="${indicationInfo.info}"></label>
+                        <br/>
+                    </label>
+                    <br/>
+                </label>
+            </td>
+        </tr>
+    </table>
+    <!--/*@thymesVar id="pageInfo" type="org.springframework.data.domain.Page"*/-->
+    <nav aria-label="Pagination" th:if="${pageInfo.totalPages gt 0}">
+        <ul class="pagination justify-content-end font-weight-bold">
+            <li class="page-item" th:classappend="${pageInfo.number eq 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/evaluation/v1/search?page={id}(id=${pageInfo.number lt 2 ? 1 : pageInfo.number})}"
+                   aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${i eq pageInfo.number + 1} ? 'active'"
+                th:each="i : ${#numbers.sequence( 1, pageInfo.totalPages, 1)}">
+                <a class="page-link" th:href="@{/evaluation/v1/search?page={id}(id=${i})}" th:text="${i}"
+                   th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+            </li>
+            <li class="page-item" th:classappend="${pageInfo.number + 1 eq pageInfo.totalPages} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{/evaluation/v1/search?page={id}(id=${pageInfo.number + 2})}"
+                   aria-label="Next" title="Next Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+</body>
+</html>

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,11 +18,11 @@ import javax.persistence.ManyToOne;
 public class Classification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String code;
     private String name;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UndesirableAction undesirableAction;
 
     public Classification(String code, String name, UndesirableAction undesirableAction) {

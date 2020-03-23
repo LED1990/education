@@ -1,0 +1,15 @@
+.table-container{
+    width: 80%;
+    height: 80%;
+}
+.criteria-container{
+    width: 80%;
+}
+.criteria-container .input-group,.input-group-sm,.mb-3{
+    width: 100%;
+}
+
+#submit-evaluation{
+    float: right;
+    margin-bottom: 10px;
+}
