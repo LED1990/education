@@ -1,6 +1,6 @@
-package db.evaluation.springData;
+package db.jpa.evaluation.springData;
 
-import db.evaluation.criteria.EvaluationCriteriaDao;
+import db.jpa.evaluation.criteria.EvaluationCriteriaDao;
 import model.evaluation.Evaluation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

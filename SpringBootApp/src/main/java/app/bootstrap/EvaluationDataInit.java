@@ -1,24 +1,19 @@
 package app.bootstrap;
 
-import db.evaluation.springData.EvaluationDao;
-import evaluation.EvaluationMock;
-import model.evaluation.Evaluation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import db.jpa.evaluation.springData.EvaluationDao;
+import jpa.EvaluationMock;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * Class just for test to initialize h2 db with some startup data
  */
+@Slf4j
 @Component
 public class EvaluationDataInit implements CommandLineRunner {
-
-    private Logger logger = LoggerFactory.getLogger(EvaluationDataInit.class);
 
     private final EvaluationDao evaluationDao;
 
@@ -30,14 +25,8 @@ public class EvaluationDataInit implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        logger.info("Bootstrapping evaluation data");
-
-        List<Evaluation> mocks = EvaluationMock.prepareEvaluationObjectMock();
-        for (Evaluation eval: mocks
-             ) {
-            evaluationDao.save(eval);
-        }
-
+        log.info("Bootstrapping jpa data");
+        evaluationDao.saveAll(EvaluationMock.prepareEvaluationObjectMock());
     }
 
 

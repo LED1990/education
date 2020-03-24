@@ -1,8 +1,8 @@
 package db.evaluation.criteria;
 
 import db.evaluation.config.DbTestConfig;
-import db.evaluation.springData.EvaluationDao;
-import evaluation.EvaluationMock;
+import db.jpa.evaluation.springData.EvaluationDao;
+import jpa.EvaluationMock;
 import model.evaluation.Evaluation;
 import model.evaluation.EvaluationResults;
 import model.evaluation.EvaluationSearchCriteria;

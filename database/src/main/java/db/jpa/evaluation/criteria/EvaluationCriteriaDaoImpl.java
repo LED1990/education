@@ -1,4 +1,4 @@
-package db.evaluation.criteria;
+package db.jpa.evaluation.criteria;
 
 
 import model.evaluation.*;

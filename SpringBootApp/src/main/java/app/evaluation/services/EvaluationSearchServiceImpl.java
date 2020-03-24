@@ -1,7 +1,7 @@
 package app.evaluation.services;
 
 import app.evaluation.services.interfaces.EvaluationSearchService;
-import db.evaluation.springData.EvaluationDao;
+import db.jpa.evaluation.springData.EvaluationDao;
 import model.evaluation.Evaluation;
 import model.evaluation.EvaluationResults;
 import model.evaluation.EvaluationSearchCriteria;
