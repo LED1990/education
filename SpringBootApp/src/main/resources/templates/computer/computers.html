@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Computers page</title>
+    <link rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <link href="../static/css/computer.css" th:href="@{/css/computer.css}" rel="stylesheet"/>
+</head>
+<body>
+<h1> Hello world of computers</h1>
+
+<div>
+    <table id="computers-table" class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th scope="row"></th>
+            <th scope="row">name</th>
+            <th scope="row">Interface type</th>
+            <th scope="row">Interface symbol</th>
+        </tr>
+        </thead>
+        <!--/*@thymesVar id="comp" type="model.mongo.Computer"*/-->
+        <tr th:each="comp,iter:${computers}">
+            <td scope="row" th:text="${iter.index +1}"></td>
+            <td th:text="${comp.name}"></td>
+            <td>
+                <label th:each="interface:${comp.interfaces}">
+                    <label th:utext="${interface.type}"></label>
+                </label>
+            </td>
+            <td>
+                <label th:each="interface:${comp.interfaces}">
+                    <label th:utext="${interface.symbol}"></label>
+                </label>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

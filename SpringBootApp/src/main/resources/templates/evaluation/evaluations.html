@@ -125,7 +125,6 @@
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="className:${action.classifications}">
                         <label th:text="${className.name}"></label>
-                        <br/>
                     </label>
                     <br/>
                 </label>
@@ -134,7 +133,6 @@
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="indicationMed:${action.indications}">
                         <label th:text="${indicationMed.medicineName}"></label>
-                        <br/>
                     </label>
                     <br/>
                 </label>
@@ -143,7 +141,6 @@
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="indicationInfo:${action.indications}">
                         <label th:text="${indicationInfo.info}"></label>
-                        <br/>
                     </label>
                     <br/>
                 </label>
