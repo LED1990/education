@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -52,7 +53,7 @@ public class UserServiceImplTest {
         User user = new User(NAME, LAST_NAME, null);
 
         //when
-        when(userRepository.findByName(NAME)).thenReturn(user);
+        when(userRepository.findByName(NAME)).thenReturn(Optional.of(user));
         UserDto userDto = userService.getUserByFirstName(NAME);
 
         //then

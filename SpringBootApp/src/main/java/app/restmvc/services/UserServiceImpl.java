@@ -1,6 +1,7 @@
 package app.restmvc.services;
 
 import app.restmvc.dto.UserDto;
+import app.restmvc.exceptions.CustomResourceNotFoundException;
 import app.restmvc.mappers.UserMapper;
 import db.restmvc.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByFirstName(String firstName) {
-        return userMapper.userDto(userRepository.findByName(firstName));
+        return userRepository.findByName(firstName).map(userMapper::userDto).orElseThrow(CustomResourceNotFoundException::new);
     }
 }
