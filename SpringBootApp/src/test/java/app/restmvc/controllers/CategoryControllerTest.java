@@ -1,6 +1,8 @@
 package app.restmvc.controllers;
 
+import app.restmvc.controllers.api.CategoryController;
 import app.restmvc.dto.CategoryDto;
+import app.restmvc.exceptions.CustomResourceNotFoundException;
 import app.restmvc.services.CategoryService;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +38,9 @@ public class CategoryControllerTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
+                .setControllerAdvice(RestResponseEntityExceptionHandler.class)
+                .build();
     }
 
     @Test
@@ -59,6 +63,16 @@ public class CategoryControllerTest {
         mockMvc.perform(get("/api/v1/categories/" + CAT2NAME).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(CAT2NAME)));
+    }
+
+    @Test
+    public void getByNameNotFound() throws Exception {
+        //when
+        when(categoryService.getByName(CAT2NAME)).thenThrow(CustomResourceNotFoundException.class);
+
+        //then
+        mockMvc.perform(get("/api/v1/categories/" + CAT2NAME).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     //given

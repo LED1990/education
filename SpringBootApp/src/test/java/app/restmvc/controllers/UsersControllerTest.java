@@ -1,5 +1,6 @@
 package app.restmvc.controllers;
 
+import app.restmvc.controllers.api.UsersController;
 import app.restmvc.dto.UserDto;
 import app.restmvc.services.UserService;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package app.restmvc.controllers;
+package app.restmvc.controllers.api;
 
 import app.restmvc.dto.CategoryDto;
 import app.restmvc.dto.CategoryListDto;

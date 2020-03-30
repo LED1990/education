@@ -1,6 +1,7 @@
 package app.restmvc.services;
 
 import app.restmvc.dto.CategoryDto;
+import app.restmvc.exceptions.CustomResourceNotFoundException;
 import app.restmvc.mappers.CategoryMapper;
 import db.restmvc.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto getByName(String name) {
-        return categoryMapper.categoryDto(categoryRepository.findByName(name));
+        return categoryRepository.findByName(name).map(categoryMapper::categoryDto)
+                .orElseThrow(CustomResourceNotFoundException::new);
     }
 }

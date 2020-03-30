@@ -1,4 +1,4 @@
-package app.restmvc.controllers;
+package app.restmvc.controllers.api;
 
 import app.restmvc.dto.UserDto;
 import app.restmvc.dto.UsersListDto;
