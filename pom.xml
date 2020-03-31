@@ -27,6 +27,7 @@
 		<swagger.version>2.7.0</swagger.version>
 		<jackson-xml.version>2.9.3</jackson-xml.version>
 		<woodstox-core.version>4.4.1</woodstox-core.version>
+		<jms.version>5.2.4.RELEASE</jms.version>
 	</properties>
 
 	<dependencies>
