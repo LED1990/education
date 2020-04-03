@@ -1,14 +1,15 @@
 package app.evaluation.controllers;
 
 import app.evaluation.services.interfaces.EvaluationSearchService;
+import app.evaluation.services.interfaces.EvaluationService;
 import model.evaluation.Evaluation;
+import model.evaluation.EvaluationForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -28,11 +29,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class EvaluationControllerTest {
 
-    @Mock
-    private EvaluationSearchService evaluationSearchService;
+    private static final long ID = 1L;
 
     @InjectMocks
     private EvaluationController evaluationController;
+
+    @Mock
+    private EvaluationSearchService evaluationSearchService;
+
+    @Mock
+    private EvaluationService evaluationService;
 
     private MockMvc mockMvc;
     private Optional<Page<Evaluation>> pageInfo = prepareDataFromDb();
@@ -69,6 +75,22 @@ class EvaluationControllerTest {
                 .andExpect(model().attribute("totalElements", 10L))
                 .andExpect(model().attribute("pageInfo", pageInfo.get()))
                 .andExpect(view().name("evaluation/evaluations"));
+    }
+
+    @Test
+    void getEvaluationToEdit() throws Exception {
+        //when
+        when(evaluationService.getFormById(ID)).thenReturn(Optional.of(new EvaluationForm()));
+
+        //then
+        mockMvc.perform(get("/evaluation/v1/edit/" + ID))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("evaluationForm"))
+                .andExpect(view().name("evaluation/edit"));
+    }
+
+    @Test
+    void editEvaluation() {
     }
 
     private Optional<Page<Evaluation>> prepareDataFromDb() {

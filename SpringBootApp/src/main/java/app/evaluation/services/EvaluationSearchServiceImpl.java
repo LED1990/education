@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,10 +37,5 @@ public class EvaluationSearchServiceImpl implements EvaluationSearchService {
             return Optional.of(page);
         }
         return Optional.empty();
-    }
-
-    @Override
-    public Optional<List<Evaluation>> getAll() {
-        return evaluationDao.getAllEntities();
     }
 }

@@ -1,7 +1,9 @@
 package app.evaluation.controllers;
 
 import app.evaluation.services.interfaces.EvaluationSearchService;
+import app.evaluation.services.interfaces.EvaluationService;
 import model.evaluation.Evaluation;
+import model.evaluation.EvaluationForm;
 import model.evaluation.EvaluationSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,11 +19,14 @@ public class EvaluationController {
 
 
     private EvaluationSearchService evaluationSearchService;
-    private EvaluationSearchCriteria searchCriteria = new EvaluationSearchCriteria();
+    private EvaluationService evaluationService;
+    private EvaluationSearchCriteria searchCriteria;
+
 
     @Autowired
-    public EvaluationController(EvaluationSearchService evaluationSearchService) {
+    public EvaluationController(EvaluationSearchService evaluationSearchService, EvaluationService evaluationService) {
         this.evaluationSearchService = evaluationSearchService;
+        this.evaluationService = evaluationService;
     }
 
     @GetMapping("search")
@@ -42,5 +47,20 @@ public class EvaluationController {
         result.ifPresent(evaluations -> model.addAttribute("totalElements", evaluations.getTotalElements()));
         result.ifPresent(evaluations -> model.addAttribute("pageInfo", evaluations));
         return "evaluation/evaluations";
+    }
+
+    @GetMapping
+    @RequestMapping("edit/{id}")
+    public String getEvaluationToEdit(Model model, @PathVariable Long id) {
+        Optional<EvaluationForm> result = evaluationService.getFormById(id);
+        result.ifPresent(evaluationForm -> model.addAttribute("evaluationForm", evaluationForm));
+        return "evaluation/edit";
+    }
+
+    @PostMapping
+    @RequestMapping("edit")
+    public String editEvaluation(@ModelAttribute("evaluation") EvaluationForm evaluationForm) {
+//        evaluationSearchService.getFormById(id).ifPresent(evaluation -> model.addAttribute("evaluation", evaluation));
+        return "";//todo redirect to search
     }
 }

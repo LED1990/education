@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit evaluation</title>
+    <link rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <link href="../static/css/evaluation.css" th:href="@{/css/evaluation.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<!--/*@thymesVar id="evaluationForm" type="model.evaluation.EvaluationForm"*/-->
+<form action="#" th:action="@{/evaluation/v1/edit}" th:object="${evaluationForm}"
+      method="post">
+    <input type="hidden" th:field="*{id}">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <label for="comment">Evaluation comment</label>
+                <div class="input-group input-group-sm mb-3">
+                    <input id="comment" type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" th:field="*{comment}"/>
+                </div>
+            </div>
+            <div class="col-sm">
+                <label for="case-narrative">Evaluation case narrative</label>
+                <div class="input-group input-group-sm mb-3">
+                    <input id="case-narrative" type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" th:field="*{caseNarrative}"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <label>Undesirable Actions</label>
+            <!--/*@thymesVar id="ua" type="model.evaluation.UndesirableActionForm"*/-->
+            <div class="col-sm" th:each="ua:*{undesirableActions}">
+                <input type="hidden" th:field="*{undesirableActions[__${uaStat.index}__].id}">
+                <div class="input-group input-group-sm mb-3">
+                    <input th:field="*{undesirableActions[__${uaStat.index}__].description}"
+                           type="text" class="form-control" aria-label="Sizing example input"
+                           aria-describedby="inputGroup-sizing-sm" title="Undesirable action description"/>
+                </div>
+                <div class="row">
+                    <label>Classifications</label>
+                    <!--/*@thymesVar id="ua" type="model.evaluation.UndesirableActionForm"*/-->
+                    <div class="col-sm" th:each="clas:${ua.classifications}">
+                        <input type="hidden"
+                               th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].id}">
+                        <div class="input-group input-group-sm mb-3">
+                            <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].code}"
+                                   type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].name}"
+                                   type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label>Indications</label>
+                    <!--/*@thymesVar id="ua" type="model.evaluation.UndesirableActionForm"*/-->
+                    <div class="col-sm" th:each="ind:${ua.indications}">
+                        <input type="hidden"
+                               th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].id}">
+                        <div class="input-group input-group-sm mb-3">
+                            <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].info}"
+                                   type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
+                        </div>
+                        <div class="input-group input-group-sm mb-3">
+                            <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].medicineName}"
+                                   type="text" class="form-control" aria-label="Sizing example input"
+                                   aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input id="submit-changes" class="btn btn-primary" type="submit" value="Save"/>
+</form>
+
+</body>
+</html>
