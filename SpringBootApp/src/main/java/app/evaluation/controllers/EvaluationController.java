@@ -20,7 +20,7 @@ public class EvaluationController {
 
     private EvaluationSearchService evaluationSearchService;
     private EvaluationService evaluationService;
-    private EvaluationSearchCriteria searchCriteria;
+    private EvaluationSearchCriteria searchCriteria = new EvaluationSearchCriteria();
 
 
     @Autowired
