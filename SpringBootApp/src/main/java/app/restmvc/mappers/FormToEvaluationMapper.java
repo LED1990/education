@@ -1,7 +1,7 @@
 package app.restmvc.mappers;
 
 import model.evaluation.Evaluation;
-import model.evaluation.EvaluationForm;
+import model.evaluation.forms.EvaluationForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

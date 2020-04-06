@@ -3,8 +3,8 @@ package app.evaluation.controllers;
 import app.evaluation.services.interfaces.EvaluationSearchService;
 import app.evaluation.services.interfaces.EvaluationService;
 import model.evaluation.Evaluation;
-import model.evaluation.EvaluationForm;
 import model.evaluation.EvaluationSearchCriteria;
+import model.evaluation.forms.EvaluationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -58,9 +58,9 @@ public class EvaluationController {
     }
 
     @PostMapping
-    @RequestMapping("edit")
-    public String editEvaluation(@ModelAttribute("evaluation") EvaluationForm evaluationForm) {
-//        evaluationSearchService.getFormById(id).ifPresent(evaluation -> model.addAttribute("evaluation", evaluation));
-        return "";//todo redirect to search
+    @RequestMapping("save")
+    public String saveChanges(@ModelAttribute("evaluation") EvaluationForm evaluationForm) {
+        evaluationService.updateEvaluation(evaluationForm);
+        return "redirect:/evaluation/v1/search?page=0";//todo mapowanie wysztkich obiektów zagniezdzonch
     }
 }

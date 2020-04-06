@@ -4,12 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Getter
@@ -29,5 +25,20 @@ public class Indication {
         this.medicineName = medicineName;
         this.info = info;
         this.undesirableAction = undesirableAction;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Indication that = (Indication) o;
+
+        return id != null && Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;//because DB is setting ID during flush, don't worry if collections are not too big
     }
 }

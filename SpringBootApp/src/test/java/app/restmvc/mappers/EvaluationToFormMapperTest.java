@@ -1,6 +1,10 @@
 package app.restmvc.mappers;
 
-import model.evaluation.*;
+import model.evaluation.Classification;
+import model.evaluation.Evaluation;
+import model.evaluation.Indication;
+import model.evaluation.UndesirableAction;
+import model.evaluation.forms.EvaluationForm;
 import org.junit.Assert;
 import org.junit.Test;
 

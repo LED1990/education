@@ -3,7 +3,7 @@ package app.evaluation.controllers;
 import app.evaluation.services.interfaces.EvaluationSearchService;
 import app.evaluation.services.interfaces.EvaluationService;
 import model.evaluation.Evaluation;
-import model.evaluation.EvaluationForm;
+import model.evaluation.forms.EvaluationForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

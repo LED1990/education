@@ -2,7 +2,7 @@ package app.evaluation.services;
 
 import db.evaluation.springData.EvaluationDao;
 import model.evaluation.Evaluation;
-import model.evaluation.EvaluationForm;
+import model.evaluation.forms.EvaluationForm;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

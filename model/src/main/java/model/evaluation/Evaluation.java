@@ -26,4 +26,14 @@ public class Evaluation {
         this.caseNarrative = caseNarrative;
         this.undesirableActions = undesirableActions;
     }
+
+    public void removeUndesirableAction(UndesirableAction undesirableAction){
+        undesirableActions.remove(undesirableAction);
+        undesirableAction.setEvaluation(null);
+    }
+
+    public void addUndesirableAction(UndesirableAction undesirableAction){
+        undesirableActions.add(undesirableAction);
+        undesirableAction.setEvaluation(this);
+    }
 }

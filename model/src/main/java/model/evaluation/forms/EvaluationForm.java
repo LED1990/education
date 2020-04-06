@@ -1,4 +1,4 @@
-package model.evaluation;
+package model.evaluation.forms;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,10 @@
 package app.restmvc.mappers;
 
-import model.evaluation.*;
+import model.evaluation.Evaluation;
+import model.evaluation.forms.ClassificationForm;
+import model.evaluation.forms.EvaluationForm;
+import model.evaluation.forms.IndicationForm;
+import model.evaluation.forms.UndesirableActionForm;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -17,19 +21,19 @@ public class FormToEvaluationMapperTest {
     @Test
     public void formToEvaluation() throws Exception {
         //given
-        Classification classification = new Classification();
-        classification.setId(ID);
-        classification.setName(CLASS_NAME);
+        ClassificationForm classificationForm = new ClassificationForm();
+        classificationForm.setId(ID);
+        classificationForm.setName(CLASS_NAME);
 
-        Indication indication = new Indication();
-        indication.setMedicineName(MED);
-        indication.setId(ID);
+        IndicationForm indicationFormn = new IndicationForm();
+        indicationFormn.setMedicineName(MED);
+        indicationFormn.setId(ID);
 
         UndesirableActionForm undesirableAction = new UndesirableActionForm();
         undesirableAction.setDescription(DESCRIPTION);
         undesirableAction.setId(ID);
-        undesirableAction.setClassifications(new ArrayList<>(Collections.singletonList(classification)));
-        undesirableAction.setIndications(new ArrayList<>(Collections.singletonList(indication)));
+        undesirableAction.setClassifications(new ArrayList<>(Collections.singletonList(classificationForm)));
+        undesirableAction.setIndications(new ArrayList<>(Collections.singletonList(indicationFormn)));
 
         EvaluationForm evaluation = new EvaluationForm();
         evaluation.setId(ID);

@@ -10,11 +10,15 @@
     <script integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
     <link href="../static/css/evaluation.css" th:href="@{/css/evaluation.css}" rel="stylesheet"/>
+
+
 </head>
 <body>
+<script type="text/javascript" th:src="@{/js/evaluation.js}"></script>
 
-<!--/*@thymesVar id="evaluationForm" type="model.evaluation.EvaluationForm"*/-->
-<form action="#" th:action="@{/evaluation/v1/edit}" th:object="${evaluationForm}"
+
+<!--/*@thymesVar id="evaluationForm" type="model.evaluation.forms.EvaluationForm"*/-->
+<form action="#" th:action="@{/evaluation/v1/save}" th:object="${evaluationForm}"
       method="post">
     <input type="hidden" th:field="*{id}">
     <div class="container">
@@ -35,57 +39,65 @@
             </div>
         </div>
         <div class="row">
-            <label>Undesirable Actions</label>
-            <!--/*@thymesVar id="ua" type="model.evaluation.UndesirableActionForm"*/-->
-            <div class="col-sm" th:each="ua:*{undesirableActions}">
-                <input type="hidden" th:field="*{undesirableActions[__${uaStat.index}__].id}">
-                <div class="input-group input-group-sm mb-3">
-                    <input th:field="*{undesirableActions[__${uaStat.index}__].description}"
-                           type="text" class="form-control" aria-label="Sizing example input"
-                           aria-describedby="inputGroup-sizing-sm" title="Undesirable action description"/>
-                </div>
-                <div class="row">
-                    <label>Classifications</label>
-                    <!--/*@thymesVar id="ua" type="model.evaluation.UndesirableActionForm"*/-->
-                    <div class="col-sm" th:each="clas:${ua.classifications}">
-                        <input type="hidden"
-                               th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].id}">
-                        <div class="input-group input-group-sm mb-3">
-                            <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].code}"
-                                   type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
-                        </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].name}"
-                                   type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
-                        </div>
+            <fieldset id="actions">
+                <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
+                <div id="actionsDiv" class="col-sm" th:each="ua:*{undesirableActions}">
+                    <label>Undesirable action</label>
+                    <input type="hidden" th:field="*{undesirableActions[__${uaStat.index}__].id}">
+                    <div class="input-group input-group-sm mb-3">
+                        <input th:field="*{undesirableActions[__${uaStat.index}__].description}"
+                               type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" title="Undesirable action description"/>
+                    </div>
+                    <div class="row">
+                        <label>Classifications</label>
+                        <fieldset id="classifications">
+                            <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
+                            <div id="classificationsDiv" class="col-sm" th:each="clas:${ua.classifications}">
+                                <input type="hidden"
+                                       th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].id}">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].code}"
+                                           type="text" class="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].name}"
+                                           type="text" class="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="row">
+                        <label>Indications</label>
+                        <fieldset id="indications">
+                            <button type="button" class="addIndication">Add</button>
+                            <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
+                            <div class="col-sm" th:each="ind:${ua.indications}">
+                                <input type="hidden" th:class="${uaStat.index}"
+                                       th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].id}">
+                                <div class="input-group input-group-sm mb-3">
+                                    <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].info}"
+                                           type="text" class="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
+                                </div>
+                                <div class="input-group input-group-sm mb-3">
+                                    <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].medicineName}"
+                                           type="text" class="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
+                                </div>
+                                <button type="button" class="removeIndication">Remove</button>
+                            </div>
+                        </fieldset>
+
                     </div>
                 </div>
-                <div class="row">
-                    <label>Indications</label>
-                    <!--/*@thymesVar id="ua" type="model.evaluation.UndesirableActionForm"*/-->
-                    <div class="col-sm" th:each="ind:${ua.indications}">
-                        <input type="hidden"
-                               th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].id}">
-                        <div class="input-group input-group-sm mb-3">
-                            <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].info}"
-                                   type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
-                        </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].medicineName}"
-                                   type="text" class="form-control" aria-label="Sizing example input"
-                                   aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </fieldset>
         </div>
 
     </div>
     <input id="submit-changes" class="btn btn-primary" type="submit" value="Save"/>
 </form>
-
 </body>
 </html>

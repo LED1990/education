@@ -1,7 +1,7 @@
 package app.restmvc.mappers;
 
 import model.evaluation.UndesirableAction;
-import model.evaluation.UndesirableActionForm;
+import model.evaluation.forms.UndesirableActionForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
