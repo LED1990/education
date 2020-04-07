@@ -10,7 +10,7 @@
     <script integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
     <link href="../static/css/evaluation.css" th:href="@{/css/evaluation.css}" rel="stylesheet"/>
-
+    <link href="../static/css/edit.css" th:href="@{/css/edit.css}" rel="stylesheet"/>
 
 </head>
 <body>
@@ -22,7 +22,7 @@
       method="post">
     <input type="hidden" th:field="*{id}">
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-md-center">
             <div class="col-sm">
                 <label for="comment">Evaluation comment</label>
                 <div class="input-group input-group-sm mb-3">
@@ -50,10 +50,11 @@
                                aria-describedby="inputGroup-sizing-sm" title="Undesirable action description"/>
                     </div>
                     <div class="row">
-                        <label>Classifications</label>
                         <fieldset id="classifications">
+                            <input type="hidden" th:class="${uaStat.index}"/>
                             <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
                             <div id="classificationsDiv" class="col-sm" th:each="clas:${ua.classifications}">
+                                <label>Classification</label>
                                 <input type="hidden"
                                        th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].id}">
                                 <div class="input-group input-group-sm mb-3">
@@ -70,11 +71,12 @@
                         </fieldset>
                     </div>
                     <div class="row">
-                        <label>Indications</label>
                         <fieldset id="indications">
-                            <button type="button" class="addIndication">Add</button>
+                            <button type="button" class="addIndication btn btn-primary">Add</button>
+                            <input type="hidden" th:class="${uaStat.index}"/>
                             <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
                             <div class="col-sm" th:each="ind:${ua.indications}">
+                                <label>Indication</label>
                                 <input type="hidden" th:class="${uaStat.index}"
                                        th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].id}">
                                 <div class="input-group input-group-sm mb-3">
@@ -87,7 +89,7 @@
                                            type="text" class="form-control" aria-label="Sizing example input"
                                            aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
                                 </div>
-                                <button type="button" class="removeIndication">Remove</button>
+                                <button type="button" class="removeIndication btn btn-primary">Remove</button>
                             </div>
                         </fieldset>
 
@@ -95,9 +97,9 @@
                 </div>
             </fieldset>
         </div>
-
+        <input id="submit-changes" class="btn btn-primary btn-lg btn-block" type="submit" value="Save"/>
     </div>
-    <input id="submit-changes" class="btn btn-primary" type="submit" value="Save"/>
+
 </form>
 </body>
 </html>

@@ -13,3 +13,7 @@
     float: right;
     margin-bottom: 10px;
 }
+
+.table-container label{
+    display: block;
+}

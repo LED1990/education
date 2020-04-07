@@ -11,7 +11,6 @@ import model.evaluation.forms.EvaluationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +29,6 @@ public class EvaluationServiceImpl implements EvaluationService {
         this.formToEvaluationMapper = FormToEvaluationMapper.INSTANCE;
     }
 
-    @Transactional
     @Override
     public Long updateEvaluation(EvaluationForm evaluationForm) {
         Evaluation evaluation = formToEvaluationMapper.formToEvaluation(evaluationForm);
@@ -43,13 +41,11 @@ public class EvaluationServiceImpl implements EvaluationService {
         return evaluationDao.updateEvaluation(evaluation);
     }
 
-    @Transactional
     @Override
     public Optional<List<Evaluation>> getAll() {
         return evaluationDao.getAllEntities();
     }
 
-    @Transactional
     @Override
     public Optional<EvaluationForm> getFormById(Long id) {
         Optional<Evaluation> result = evaluationDao.findById(id);

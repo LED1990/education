@@ -1,0 +1,9 @@
+fieldset {
+    width: 100%;
+}
+
+fieldset button{
+    width: 30%;
+    /*float: right;*/
+    margin: 10px;
+}
