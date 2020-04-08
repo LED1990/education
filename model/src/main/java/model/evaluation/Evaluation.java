@@ -4,12 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -22,13 +17,23 @@ public class Evaluation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String comment;
-    private String CaseNarrative;
+    private String caseNarrative;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
     private Set<UndesirableAction> undesirableActions;
 
     public Evaluation(String comment, String caseNarrative, Set<UndesirableAction> undesirableActions) {
         this.comment = comment;
-        CaseNarrative = caseNarrative;
+        this.caseNarrative = caseNarrative;
         this.undesirableActions = undesirableActions;
+    }
+
+    public void removeUndesirableAction(UndesirableAction undesirableAction){
+        undesirableActions.remove(undesirableAction);
+        undesirableAction.setEvaluation(null);
+    }
+
+    public void addUndesirableAction(UndesirableAction undesirableAction){
+        undesirableActions.add(undesirableAction);
+        undesirableAction.setEvaluation(this);
     }
 }

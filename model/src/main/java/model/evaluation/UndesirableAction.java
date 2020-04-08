@@ -4,14 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -24,10 +19,10 @@ public class UndesirableAction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
-    private Set<Classification> classifications;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction")
-    private Set<Indication> indications;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction", orphanRemoval = true)
+    private Set<Classification> classifications = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "undesirableAction", orphanRemoval = true)
+    private Set<Indication> indications = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Evaluation evaluation;
@@ -37,4 +32,38 @@ public class UndesirableAction {
         this.evaluation = evaluation;
     }
 
+    public void removeIndication(Indication indication) {
+        indications.remove(indication);
+        indication.setUndesirableAction(null);
+    }
+
+    public void removeClassification(Classification classification) {
+        classifications.remove(classification);
+        classification.setUndesirableAction(null);
+    }
+
+    public void addIndication(Indication indication) {
+        indications.add(indication);
+        indication.setUndesirableAction(this);
+    }
+
+    public void addClassification(Classification classification) {
+        classifications.add(classification);
+        classification.setUndesirableAction(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UndesirableAction that = (UndesirableAction) o;
+
+        return id != null && Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;//because DB is setting ID during flush, don't worry if collections are not too big
+    }
 }

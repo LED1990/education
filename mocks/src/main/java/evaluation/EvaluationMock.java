@@ -103,4 +103,9 @@ public class EvaluationMock {
 
         return evaluation;
     }
+
+    public static Evaluation prepareSingleObject(){
+        EvaluationSearchCriteria evaluationSearchCriteria = new EvaluationSearchCriteria("every", "case narrative1", "description1", "code1", "name1", "medicine1", "info1", 0, 5);
+        return prepareObject(evaluationSearchCriteria);
+    }
 }

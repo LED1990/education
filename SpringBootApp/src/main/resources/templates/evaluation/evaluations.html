@@ -97,6 +97,7 @@
             <th scope="row">Classification name</th>
             <th scope="row">Medicine</th>
             <th scope="row">Info</th>
+            <th scope="row"></th>
         </tr>
         </thead>
         <!--/*@thymesVar id="evalList" type="model.evaluation.Evaluation"*/-->
@@ -109,44 +110,38 @@
             <td>
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:text="${action.description}"></label>
-                    <br/>
                 </label>
             </td>
             <td>
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="classCode:${action.classifications}">
                         <label th:text="${classCode.code}"></label>
-                        <br/>
                     </label>
-                    <br/>
                 </label>
             </td>
             <td>
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="className:${action.classifications}">
                         <label th:text="${className.name}"></label>
-                        <br/>
                     </label>
-                    <br/>
                 </label>
             </td>
             <td>
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="indicationMed:${action.indications}">
                         <label th:text="${indicationMed.medicineName}"></label>
-                        <br/>
                     </label>
-                    <br/>
                 </label>
             </td>
             <td>
                 <label th:each="action:${eval.undesirableActions}">
                     <label th:each="indicationInfo:${action.indications}">
                         <label th:text="${indicationInfo.info}"></label>
-                        <br/>
                     </label>
-                    <br/>
                 </label>
+            </td>
+            <td>
+                <a th:href="@{'/evaluation/v1/edit/' + ${eval.id}}"  class="btn btn-primary"><span th:text="EDIT"></span></a>
             </td>
         </tr>
     </table>
