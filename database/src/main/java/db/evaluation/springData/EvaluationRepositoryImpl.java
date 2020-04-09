@@ -18,7 +18,7 @@ public class EvaluationRepositoryImpl implements EvaluationRepository {
     @Transactional
     @Override
     public Long updateEvaluation(Evaluation evaluation) {
-        log.info("Updating entity with JPA");
+        log.debug("Updating entity with JPA");
         Evaluation result = entityManager.merge(evaluation);
         return result.getId();
     }

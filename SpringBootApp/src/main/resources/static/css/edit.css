@@ -1,9 +1,13 @@
-fieldset {
-    width: 100%;
+label.col-form-label-sm  {
+    margin: 0;
+    padding: 0;
 }
 
-fieldset button{
-    width: 30%;
-    /*float: right;*/
-    margin: 10px;
+.form-row{
+    margin: 5px;
+}
+
+#updateEvaluation{
+    margin: 20px;
+    float: right;
 }

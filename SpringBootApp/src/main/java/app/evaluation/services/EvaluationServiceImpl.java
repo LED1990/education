@@ -11,6 +11,7 @@ import model.evaluation.forms.EvaluationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,11 +33,23 @@ public class EvaluationServiceImpl implements EvaluationService {
     @Override
     public Long updateEvaluation(EvaluationForm evaluationForm) {
         Evaluation evaluation = formToEvaluationMapper.formToEvaluation(evaluationForm);
-        for (UndesirableAction ua: evaluation.getUndesirableActions()
-             ) {
-            ua.setEvaluation(evaluation);
-            ua.getClassifications().forEach(classification -> classification.setUndesirableAction(ua));
-            ua.getIndications().forEach(indication -> indication.setUndesirableAction(ua));
+        if (evaluation.getUndesirableActions() != null){
+            for (UndesirableAction ua: evaluation.getUndesirableActions()
+                    ) {
+                evaluation.addUndesirableAction(ua);
+                if(ua.getClassifications() != null){
+                    ua.getClassifications().forEach(ua::addClassification);
+                }else {
+                    ua.setClassifications(new HashSet<>());
+                }
+                if (ua.getIndications() != null){
+                    ua.getIndications().forEach(ua::addIndication);
+                }else {
+                    ua.setIndications(new HashSet<>());
+                }
+            }
+        }else {
+            evaluation.setUndesirableActions(new HashSet<>());
         }
         return evaluationDao.updateEvaluation(evaluation);
     }

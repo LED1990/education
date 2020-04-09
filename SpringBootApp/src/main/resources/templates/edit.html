@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit evaluation</title>
+    <link rel="stylesheet"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}">
+    <script src="/webjars/jquery/3.4.0/jquery.min.js"></script>
+    <script integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+    <link href="../static/css/edit.css" th:href="@{/css/edit.css}" rel="stylesheet"/>
+
+</head>
+<body>
+<script type="text/javascript" th:src="@{/js/evaluation.js}"></script>
+
+
+<div th:replace="fragments/editEvaluationFragments::evaluation-form"></div>
+
+</body>
+</html>

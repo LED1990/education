@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="evaluation-form" th:remove="tag">
+    <!--/*@thymesVar id="evaluationForm" type="model.evaluation.forms.EvaluationForm"*/-->
+    <form id="evaluationForm"
+          class="form-group"
+          action="#" th:action="@{/evaluation/v1/edit/save}"
+          th:object="${evaluationForm}"
+          method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-row">
+            <div class="col">
+                <label class="col-form-label-sm" for="comment">Evaluation comment</label>
+                <input id="comment" type="text" class="form-control form-control-sm" aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm" th:field="*{comment}"/>
+            </div>
+            <div class="col">
+                <label class="col-form-label-sm" for="case-narrative">Evaluation case narrative</label>
+                <input id="case-narrative" type="text" class="form-control form-control-sm"
+                       aria-label="Sizing example input"
+                       aria-describedby="inputGroup-sizing-sm" th:field="*{caseNarrative}"/>
+            </div>
+        </div>
+        <div class="form-row">
+            <button id="addAction" class="btn btn-primary btn-sm btn-block"
+                    type="button" name="addAction">Add action
+            </button>
+        </div>
+
+        <div class="form-row" th:each="ua:*{undesirableActions}">
+            <input type="hidden" class="form-control form-control-sm"
+                   th:field="*{undesirableActions[__${uaStat.index}__].id}">
+            <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
+            <div class="col-3">
+                <div class="form-row">
+                    <div class="col">
+                        <label class="col-form-label-sm"></label>
+                    </div>
+                    <div class="col">
+                        <button id="removeAction"
+                                class="btn btn-secondary btn-sm btn-block" type="button"
+                                th:value="${uaStat.index}"
+                                name="removeAction">Remove action
+                        </button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label class="col-form-label-sm">Description</label>
+                        <input th:field="*{undesirableActions[__${uaStat.index}__].description}"
+                               type="text" class="form-control form-control-sm" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" title="Undesirable action description"/>
+                    </div>
+                </div>
+            </div>
+            <!--CLASSIFICATIONS-->
+            <div class="col-4">
+                <input type="hidden" th:class="${uaStat.index}"/>
+                <div class="form-row">
+                    <div class="col">
+                        <label class="col-form-label-sm">Classifications</label>
+                    </div>
+                    <div class="col">
+                        <button id="addClassification"
+                                class="btn btn-primary btn-sm btn-block"
+                                type="button"
+                                th:value="${uaStat.index}" name="addClassification">Add
+                        </button>
+                    </div>
+                </div>
+                <!--/*@thymesVar id="ua" type="model.evaluation.forms.UndesirableActionForm"*/-->
+                <div class="form-row" th:each="clas:${ua.classifications}">
+                    <input type="hidden"
+                           th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].id}">
+                    <div class="col">
+                        <label class="col-form-label-sm">Code</label>
+                        <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].code}"
+                               type="text" class="form-control form-control-sm" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" title="Classification code"/>
+                    </div>
+                    <div class="col">
+                        <label class="col-form-label-sm">Name</label>
+                        <input th:field="*{undesirableActions[__${uaStat.index}__].classifications[__${clasStat.index}__].name}"
+                               type="text" class="form-control form-control-sm" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" title="Classification name"/>
+                    </div>
+                    <div class="col">
+                        <label class="col-form-label-sm"></label>
+                        <button id="removeClassification"
+                                class="btn btn-secondary btn-sm btn-block" type="button"
+                                th:value="${uaStat.index}+';'+${clasStat.index}"
+                                name="removeClassification">Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--INDICATIONS-->
+            <div class="col-5">
+                <input type="hidden" th:class="${uaStat.index}"/>
+                <div class="form-row">
+                    <div class="col">
+                        <label class="col-form-label-sm">Indications</label>
+                    </div>
+                    <div class="col">
+                        <button id="addIndication"
+                                class="btn btn-primary btn-sm btn-block"
+                                type="button"
+                                th:value="${uaStat.index}" name="addIndication">Add
+                        </button>
+                    </div>
+                </div>
+                <div class="form-row" th:each="ind:${ua.indications}">
+                    <input type="hidden" th:class="${uaStat.index}"
+                           th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].id}">
+                    <div class="col">
+                        <label class="col-form-label-sm">Code</label>
+                        <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].info}"
+                               type="text" class="form-control form-control-sm" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" title="Indication code"/>
+                    </div>
+                    <div class="col">
+                        <label class="col-form-label-sm">Medicine name</label>
+                        <input th:field="*{undesirableActions[__${uaStat.index}__].indications[__${indStat.index}__].medicineName}"
+                               type="text" class="form-control form-control-sm" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-sm" title="Indication medicine name"/>
+                    </div>
+                    <div class="col">
+                        <label class="col-form-label-sm"></label>
+                        <button id="removeIndication"
+                                class="btn btn-secondary btn-sm btn-block" type="button"
+                                th:value="${uaStat.index}+';'+${indStat.index}"
+                                name="removeIndication">Remove
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input id="updateEvaluation" type="submit" class="btn btn-primary btn-lg" value="Save">
+    </form>
+</div>
+
+</body>
+</html>

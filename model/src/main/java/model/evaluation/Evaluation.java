@@ -18,7 +18,7 @@ public class Evaluation {
     private Long id;
     private String comment;
     private String caseNarrative;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evaluation", orphanRemoval = true)
     private Set<UndesirableAction> undesirableActions;
 
     public Evaluation(String comment, String caseNarrative, Set<UndesirableAction> undesirableActions) {
