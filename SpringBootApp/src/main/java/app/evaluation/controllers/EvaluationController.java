@@ -1,7 +1,6 @@
 package app.evaluation.controllers;
 
 import app.evaluation.services.interfaces.EvaluationSearchService;
-import app.evaluation.services.interfaces.EvaluationService;
 import model.evaluation.Evaluation;
 import model.evaluation.EvaluationSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,12 @@ public class EvaluationController {
 
 
     private EvaluationSearchService evaluationSearchService;
-    private EvaluationService evaluationService;
     private EvaluationSearchCriteria searchCriteria = new EvaluationSearchCriteria();
 
 
     @Autowired
-    public EvaluationController(EvaluationSearchService evaluationSearchService, EvaluationService evaluationService) {
+    public EvaluationController(EvaluationSearchService evaluationSearchService) {
         this.evaluationSearchService = evaluationSearchService;
-        this.evaluationService = evaluationService;
     }
 
     @GetMapping("search")
