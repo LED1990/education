@@ -26,6 +26,7 @@ public class UsersControllerTest {
 
     private static final String NAME = "name";
     private static final String LAST_NAME = "last name";
+    private static final long ID = 1L;
 
     @InjectMocks
     private UsersController usersController;
@@ -56,7 +57,7 @@ public class UsersControllerTest {
     @Test
     public void getByFirstName() throws Exception {
         //when
-        when(userService.getUserByFirstName(NAME)).thenReturn(new UserDto(NAME, LAST_NAME, new HashSet<>()));
+        when(userService.getUserByFirstName(NAME)).thenReturn(new UserDto(ID, NAME, LAST_NAME, new HashSet<>()));
 
         //then
         mockMvc.perform(get("/api/v1/users/" + NAME).contentType(MediaType.APPLICATION_JSON))
