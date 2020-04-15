@@ -51,7 +51,7 @@ public class EvaluationServiceImpl implements EvaluationService {
         }else {
             evaluation.setUndesirableActions(new HashSet<>());
         }
-        return evaluationDao.updateEvaluation(evaluation);
+        return evaluationDao.save(evaluation).getId();
     }
 
     @Override

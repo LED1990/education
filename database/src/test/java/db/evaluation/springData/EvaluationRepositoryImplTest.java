@@ -40,7 +40,7 @@ public class EvaluationRepositoryImplTest {
         });
 
         //when
-        Long id = evaluationDao.updateEvaluation(evaluation);
+        Long id = evaluationDao.save(evaluation).getId();
         Optional<Evaluation> result = evaluationDao.findById(id);
 
         //then

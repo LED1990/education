@@ -3,7 +3,6 @@ package app.evaluation.controllers;
 import app.evaluation.services.interfaces.EvaluationSearchService;
 import app.evaluation.services.interfaces.EvaluationService;
 import model.evaluation.Evaluation;
-import model.evaluation.forms.EvaluationForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,7 +58,7 @@ class EvaluationControllerTest {
                 .andExpect(model().attribute("evalList", pageInfo.get().getContent()))
                 .andExpect(model().attribute("totalElements", 10L))
                 .andExpect(model().attribute("pageInfo", pageInfo.get()))
-                .andExpect(view().name("evaluation/evaluations"));
+                .andExpect(view().name("evaluations"));
 
     }
 
@@ -74,23 +73,7 @@ class EvaluationControllerTest {
                 .andExpect(model().attribute("evalList", pageInfo.get().getContent()))
                 .andExpect(model().attribute("totalElements", 10L))
                 .andExpect(model().attribute("pageInfo", pageInfo.get()))
-                .andExpect(view().name("evaluation/evaluations"));
-    }
-
-    @Test
-    void getEvaluationToEdit() throws Exception {
-        //when
-        when(evaluationService.getFormById(ID)).thenReturn(Optional.of(new EvaluationForm()));
-
-        //then
-        mockMvc.perform(get("/evaluation/v1/edit/" + ID))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("evaluationForm"))
-                .andExpect(view().name("evaluation/edit"));
-    }
-
-    @Test
-    void editEvaluation() {
+                .andExpect(view().name("evaluations"));
     }
 
     private Optional<Page<Evaluation>> prepareDataFromDb() {

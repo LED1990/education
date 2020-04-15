@@ -98,7 +98,7 @@ public class EditEvaluationController {
 
     @PostMapping
     @RequestMapping(value = "/update", params = {"addIndication"})
-    public String addNewCIndication(final EvaluationForm evaluationForm, final BindingResult bindingResult, final HttpServletRequest req) {
+    public String addNewIndication(final EvaluationForm evaluationForm, final BindingResult bindingResult, final HttpServletRequest req) {
         final Integer actionIndex = Integer.valueOf(req.getParameter("addIndication"));
         IndicationForm newClassificationForm = IndicationForm.builder()
                 .info("default info")

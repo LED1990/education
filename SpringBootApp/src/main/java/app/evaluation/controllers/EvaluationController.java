@@ -15,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("evaluation/v1/")
 public class EvaluationController {
 
-
     private EvaluationSearchService evaluationSearchService;
     private EvaluationSearchCriteria searchCriteria = new EvaluationSearchCriteria();
 
