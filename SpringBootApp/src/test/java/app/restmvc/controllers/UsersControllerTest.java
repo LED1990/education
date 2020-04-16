@@ -56,7 +56,7 @@ public class UsersControllerTest {
     @Test
     public void getByFirstName() throws Exception {
         //when
-        when(userService.getUserByFirstName(NAME)).thenReturn(new UserDto(NAME, LAST_NAME, new HashSet<>()));
+        when(userService.getUserByFirstName(NAME)).thenReturn(new UserDto(1L,NAME, LAST_NAME, new HashSet<>()));
 
         //then
         mockMvc.perform(get("/api/v1/users/" + NAME).contentType(MediaType.APPLICATION_JSON))
