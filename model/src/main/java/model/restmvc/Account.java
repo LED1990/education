@@ -1,16 +1,16 @@
 package model.restmvc;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@Builder
 public class Account {
 
     @Id
@@ -29,5 +29,20 @@ public class Account {
         this.provider = provider;
         this.accNumber = accNumber;
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account account = (Account) o;
+
+        return id != null && id.equals(account.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
     }
 }

@@ -14,7 +14,4 @@ public class AccountDto implements Serializable {
     private String provider;
     private Integer accNumber;
 
-    public String getProvider() {
-        return provider;
-    }
 }
