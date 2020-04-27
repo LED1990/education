@@ -4,12 +4,14 @@ import app.restmvc.dto.UserDto;
 import app.restmvc.exceptions.CustomResourceNotFoundException;
 import app.restmvc.mappers.UserMapper;
 import db.restmvc.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -33,5 +35,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUserByFirstName(String firstName) {
         return userRepository.findByName(firstName).map(userMapper::userDto).orElseThrow(CustomResourceNotFoundException::new);
+    }
+
+    @Override
+    public UserDto getUserByWithJpql(String firstName) {
+        return userRepository.findUserByNameJpql(firstName).map(userMapper::userDto).orElseThrow(CustomResourceNotFoundException::new);
+    }
+
+    @Override
+    public UserDto getUserByWithGraph(String lastName) {
+        return userRepository.findByLastName(lastName).map(userMapper::userDto).orElseThrow(CustomResourceNotFoundException::new);
     }
 }

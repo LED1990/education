@@ -8,4 +8,6 @@ public interface UserService {
 
     List<UserDto> getAllUsers();
     UserDto getUserByFirstName(String firstName);
+    UserDto getUserByWithJpql(String firstName);
+    UserDto getUserByWithGraph(String firstName);
 }

@@ -12,6 +12,11 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@NamedEntityGraph(
+        name = "graph.UserAccountContacts",
+        attributeNodes = @NamedAttributeNode(value = "accounts", subgraph = "subgraph.contacts"),
+        subgraphs = {@NamedSubgraph(name = "subgraph.contacts", attributeNodes = @NamedAttributeNode("contacts"))}
+)
 public class User {
 
     @Id
@@ -20,6 +25,7 @@ public class User {
     private String name;
     private String lastName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user") //lazy by default
+//    @BatchSize(size = 5)//to reduce N+1 problem. Not perfect, better write custom query with fetch join or Entity Graph
     private Set<Account> accounts;
 
     //below what should not go to REST API
